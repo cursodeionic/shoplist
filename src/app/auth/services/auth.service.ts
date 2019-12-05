@@ -63,8 +63,9 @@ export class AuthService {
         firebase
             .auth()
             .signOut()
-            .then(() => {
+            .then(async () => {
               this.hasAuthUser.next(false);
+              await this.storage.remove('auth:info');
               resolve();
             })
             .catch(error => {
